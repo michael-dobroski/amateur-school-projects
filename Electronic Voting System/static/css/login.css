@@ -1,0 +1,21 @@
+#LoginContent {
+    padding: 25px 150px 200px 450px;
+}
+
+#LoginTitle {
+    padding-left: 100px;
+    padding-bottom: 20px;
+    font-family:'Times New Roman', Times, serif
+}
+
+#LoginAccess {
+    padding-left: 50px;
+    padding-bottom: 20px;
+    font-family:'Times New Roman', Times, serif
+}
+
+#LoginForm {
+    width: 400px;
+    height: 200px;
+    text-align: right;
+}

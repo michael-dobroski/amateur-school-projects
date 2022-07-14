@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<body>
+<div class="content">
+    {% if conf == 2 %}
+        <h1 style="text-align: center;">Ballot Successfully Submitted!</h1>
+        <h2 style="text-align: center;"><a href="/account_home.html"><u>Click Here To Return To Account Home Screen</u></a></h2>
+    {% else %}
+    <h1 style="text-align: center;"> Official Ballot For: {{ election.title }} </h1>
+        <form method="POST" style="min-height: 550px;min-width: 1000px;max-width: 1200px;">
+        {% if conf == 0 %}
+            {% for race in races %}
+                <div style="float:left; margin: auto; padding: 10px;">
+                    <table cellspacing="1" style="border: 3px solid black; margin: auto;"id="Table1">
+                        <thead>
+                            <tr>
+                                <th colspan="3">Position: {{ race.title }}</th>
+                            </tr>
+                            <tr>
+                                <th colspan="3">Term: {{race.term}}</th> 
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td><input type="checkbox" name="{{race.race_id}}.{{race.cand1}}" class="x-{{race.race_id}}" onclick="onlyOne(this)"/></td>
+                            <td>{{ race.cand1 }}</td>
+                            <td>
+                                <p><a href="/candidate_info/{{electionID}}/{{voterID}}/{{race.cand1}}" target="_blank"><u>View Bio</u></a></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="{{race.race_id}}.{{race.cand2}}" class="x-{{race.race_id}}" onclick="onlyOne(this)"/></td>
+                            <td>{{ race.cand2 }}</td>
+                            <td>
+                                <p><a href="/candidate_info/{{electionID}}/{{voterID}}/{{race.cand2}}" target="_blank"><u>View Bio</u></a></p>
+                            </td>
+                        </tr>
+
+                        {% if race.cand3 != None %}
+                            <tr>
+                                <td><input type="checkbox" name="{{race.race_id}}.{{race.cand3}}" class="x-{{race.race_id}}" onclick="onlyOne(this)"/></td>
+                                <td>{{ race.cand3 }}</td>
+                                <td>
+                                    <p><a href="/candidate_info/{{electionID}}/{{voterID}}/{{race.cand3}}" target="_blank"><u>View Bio</u></a></p>
+                                </td>
+                            </tr>
+                        {% endif %}
+
+                        {% if race.cand4 != None %}
+                            <tr>
+                                <td><input type="checkbox" name="{{race.race_id}}.{{race.cand4}}" class="x-{{race.race_id}}" onclick="onlyOne(this)"/></td>
+                                <td>{{ race.cand4 }}</td>
+                                <td>
+                                    <p><a href="/candidate_info/{{electionID}}/{{voterID}}/{{race.cand4}}" target="_blank"><u>View Bio</u></a></p>
+                                </td>
+                            </tr>
+                        {% endif %}
+
+                        {% if race.cand5 != None %}
+                            <tr>
+                                <td><input type="checkbox" name="{{race.race_id}}.{{race.cand5}}" class="x-{{race.race_id}}" onclick="onlyOne(this)"/></td>
+                                <td>{{ race.cand5 }}</td>
+                                <td>
+                                    <p><a href="/candidate_info/{{electionID}}/{{voterID}}/{{race.cand5}}" target="_blank"><u>View Bio</u></a></p>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </table>
+                </div>
+            {% endfor %}
+            <br>
+            <input style="margin-top: 500px;" type="submit" name="submitBTN" value="Review Selections"> 
+        {% elif conf == 1 %}
+            <h3 style="text-align: center;">Ballot Selection Summary</h3>
+            {% for race in races %}
+                <h4 style="text-align: center;">Race Position: {{race.title}} || Selection: {{cands[loop.index0]}}</h4>
+            {% endfor %}
+            <input style="margin-top: 150px; margin-left: 400px;" type="submit" name="submitBTN" value="Return To Ballot"> 
+            <input style="margin-top: 150px;" type="submit" name="submitBTN" value="Submit Ballot">
+            <input type="text" name="value" value="{{bal}}" hidden>
+        {% endif %}
+    {% endif %}
+    </form>
+</div>
+<script>
+    function onlyOne(checkbox) {
+        console.log(checkbox.className);
+        var str = "."+checkbox.className.toString();
+        var checkboxes = document.querySelectorAll(str);
+        checkboxes.forEach((item) => {
+            if (item !== checkbox) item.checked = false
+    })
+}
+</script>
+</body>
+
+
+
+{% endblock %}

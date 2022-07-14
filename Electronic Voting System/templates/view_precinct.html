@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content" style="text-align: center;" style="margin-left: 100px;">
+    <h1 style="font-size: 25px;">You Are Now Viewing Information For Following Precinct: <u>{{prec.location}}</u></h1>
+    <h3>Below Are The Corresponding Upcoming Elections For This Precinct</h3>
+    <table>
+        <thead>
+            <th>Election Title</th>
+            <th>Election ID</th>
+            <th>Polling Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+        </thead>
+        <tbody>
+            {% for e in elects %}
+                {% if e.complete == 0 %}
+                <tr>
+                    <td>{{e.title}}</td>
+                    <td>{{e.election_id}}</td>
+                    <td>{{e.polling_date}}</td>
+                    <td>{{e.start_time}}</td>
+                    <td>{{e.end_time}}</td>
+                    <td>
+                        <form method="POST">
+                            <input type="submit" value="View Election Info" name="submitBTN" id="B.{{e.election_id}}">
+                            <input type="text" name="id" value="{{e.election_id}}" hidden>
+                        </form>
+                    </td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content" style="text-align:left">
+    <h1 style="text-align:center">CREATE ELECTION</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p style="color:red;">{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form action="/create_election.html" method="POST" id="CreateElectionForm">
+        <label for="title">Title:</label>
+        <input id="title" name="title" placeholder="NOV 22 General" required><br><br>
+        <label for="polling-date">Polling Date:</label>
+        <input type="date" id="polling-date" name="polling-date" value="{{ date }}" min="{{ date }}"><br><br>
+        <label for="start-time">Start Polling Time:</label>
+        <input type="time" id="start-time" name="start-time" title="Please select a start time." required><br><br>
+        <label for="end-time">End Polling Time:</label>
+        <input type="time" id="end-time" name="end-time" title="Please select an end time." required><br><br>
+        <label for="precinct-data">Chose Precincts:</label>
+        <table id="precinct-data">
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Precinct ID</th>
+                    <th>Location</th>
+                    <th>Pooling Manager ID</th>
+                    <th>State Election Office Email</th>
+                    <th>Zipcode</th>
+                    <th>Zip+4 Start</th>
+                    <th>Zip+4 End</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for prec in precincts %}
+                    <tr>
+                        <td><input type="checkbox" name="chosen-prec" value="{{ prec.precinct_id }}"/>&nbsp;</td>
+                        <td>{{ prec.precinct_id }}</td>
+                        <td>{{ prec.location }}</td>
+                        <td>{{ prec.pooling_manager_id }}</td>
+                        <td>{{ prec.state_election_office_email }}</td>
+                        <td>{{ prec.zipcode }}</td>
+                        <td>{{ prec.zip_4_start }}</td>
+                        <td>{{ prec.zip_4_end }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+{% endblock %}

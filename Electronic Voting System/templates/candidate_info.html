@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content" style="text-align: center;" style="margin-left: 100px;">
+    {% if cand == None %}
+        <h1>Nothing To Show Here</h1>
+    {% else %}
+        <h1>Candidate Biography</h1>
+        <h2>Name: {{cand.name}}</h2>
+        <h2>Biography:</h2>
+        <p>{{cand.bio}}</p>
+    {% endif %}
+    <h2>Close Window To Return To Previous Page</h2>
+</div>
+{% endblock %}

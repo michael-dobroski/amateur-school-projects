@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content" style="text-align:center">
+    <h1 style="text-align:center">SIGN UP</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p style="color:red;">{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form action="/account_create.html" method="POST" id="CreateAccountForm">
+        <input id="fname" name="fname" placeholder="First Name" style="width: 350px;" required><br><br>
+        <input id="lname" name="lname" placeholder="Last Name" style="width: 350px;" required><br><br>
+        <input type="number" id="age" name="age" placeholder="Age" style="width: 350px;" required min="18"><br><br>
+        <input id="addr" name="addr" placeholder="Address" style="width: 350px;" required><br><br>
+        <input id="apt" name="apt" placeholder="Apartment, suite, etc." style="width: 350px;"><br><br>
+        <input id="city" name="city" placeholder="City" style="width: 350px;" required><br><br>
+        <input id="state" name = "state" list="state" placeholder="State" pattern="[A-Z]{2}" title="Two letter state abbreviation" style="width: 350px;" required maxlength="2"><br><br>
+        <input id="zip" name="zip" placeholder="ZIP Code + 4" style="width: 350px;" pattern="^[0-9]{5}(-[0-9]{4})$" title="ZIP + 4" maxlength="10"><br><br>
+        <input id="dlno" name="dlno" placeholder="Driver's License Number" style="width: 350px;" required minlength="9" maxlength="9"><br><br>
+        <input type="email" id="email" name="email" placeholder="Email Address" style="width: 350px;" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required><br><br>
+        <input type="password" id="pwd" name="pwd" placeholder="Password" style="width: 350px;" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+        title="Must contain at least one number and one uppercase and lowercase letter, and be at least 8 or more characters long."><br><br>
+        <input type="password" id="pwd2" name="pwd2" placeholder="Confirm Password" style="width: 350px" required>
+        <p style="font-size:11px;width: 350px;">Password must contain at least one number and one uppercase and lowercase letter, and be at least eight characters long.</p>
+        <input type="submit" value="Submit">
+    </form>
+    <p><a href="/login_page.html">Goto Login Page Instead</a></p>
+    <p><a href="/index.html">Public Home Page</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    {% block head %}
+    {% endblock %}
+</head>
+
+{% block body %}
+<div class="content" id="LoginContent">
+    <h1 id="LoginTitle">Login Page</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p style="color: red;">{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form action="/login_page.html" method="POST" id="LoginForm">
+        <label for="userID">Voter ID</label>
+        <input type="text" id="userID" name="userID" placeholder="Please Enter Voter ID" style="width: 300px; font-size: large;" required><br><br>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Please Enter Password" style="width: 300px; font-size: large;" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"><br>
+        <p><a href="/account_create.html">Don't have an account? Sign up <u>here</u></a></p>
+        <p><a href="/password_recovery">Forgot Password?</a></p>
+        <br>
+        <input type="submit" value="Login" id="LoginButton">
+      </form>
+</div>
+{% endblock %}

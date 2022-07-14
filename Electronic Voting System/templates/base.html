@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+    <div id="header">
+        <div class="wrap">
+            <div id="title-area">
+                <h1 id="title" class="tooltip">
+                    <a href="/index.html">Electronic Voting System</a>
+                    <span class="tooltiptext">Click To Return To Public Home Page</span>
+                </h1>
+            </div>
+            <nav>
+                <table id="tTable" style="height: 100px;">
+                    <tbody id="tBody">
+                        {% if voterID %}
+                            <tr id="tRow">
+                                <td id="tCols">
+                                    <h1 id="userLabel" class="tooltip">Current User ID: 
+                                        <a href="/account_home.html"><u>{{voterID}}</u></a>
+                                        <span class="tooltiptext">Click To Access Account Home Page</span>
+                                    </h1>
+                                </td>
+                                <td id="tCols">
+                                    <form action="/logout.html"><input type="submit" value="Logout" id="logBTN"/></form>
+                                </td>
+                                <!--<li> <a href="">Log Out</a></li>-->
+                            </tr>
+                        {% else %}
+                            <tr id="tRow">
+                                <td id="tCols">
+                                    <h4 id="userLabel">No Current User Detected. Please 
+                                        <a href="/login_page.html"><u>Login</u></a>
+                                    </h4>
+                                </td>
+                            </tr>
+                            <tr id="tRow">
+                                <td id="tCols">
+                                    <h4 style="text-align: right;"id="userLabel">Don't have an account?  
+                                        <a href="/account_create.html"><u>Sign Up Here</u></a>
+                                    </h4>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </nav>
+        </div>
+    </div>
+    {% block body %}
+    {% endblock %}
+</body>
+</html>

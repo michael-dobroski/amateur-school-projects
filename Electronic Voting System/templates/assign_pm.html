@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content" style="text-align:center">
+    <h1 style="text-align:center">Precinct Polling Manager Assignment</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p style="color:red;">{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <table style="margin-left: auto;margin-right: auto; border: none;">
+        <tr>
+            <td>
+                <a href="/account_home.html">Go Back (Home Page)</a>
+            </td>
+            <td>
+                <a href="/assign_pm.html">Clear</a>
+            </td>
+        </tr>
+    </table>
+    <br><br>
+    <h2 style="text-align:center">Current Precincts</h2> 
+    <form action="/assign_pm.html" method="POST">
+        <table id="precinct-data" style="height: 100px; overflow-y: scroll;text-align: center; margin-left: auto;margin-right: auto;">
+            <thead>
+                <tr>
+                    <th>Precinct ID</th>
+                    <th>Location</th>
+                    <th>Pooling Manager ID</th>
+                    <th>State Election Office Email</th>
+                    <th>Zipcode</th>
+                    <th>Zip+4 Start</th>
+                    <th>Zip+4 End</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for prec in precincts %}
+                    <tr>
+                        <td value="{{ prec.precinct_id }}">{{ prec.precinct_id }}</td>
+                        <td>{{ prec.location }}</td>
+                        <td>
+                            {{ prec.pooling_manager_id}}
+                        </td>
+                        <td>{{ prec.state_election_office_email }}</td>
+                        <td>{{ prec.zipcode }}</td>
+                        <td>{{ prec.zip_4_start }}</td>
+                        <td>{{ prec.zip_4_end }}</td>
+                        <td>
+                            <input onclick="editFunction(this)" data-data="{{availablePMs|safe}}" id="edit" type="button" value="Edit Polling Managers">
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table><br><br>
+    </form>
+</div>
+<script>
+    function editFunction(btn) {
+        //Add select to that row
+        var row = btn.parentElement.parentElement;
+        var cell = row.children[2];
+        var tmp = cell.innerText.split(',');
+        cell.innerText="";
+        var sel = document.createElement("select");
+        sel.name = "PMSelect";
+        var availPMS = btn.dataset.data;
+        availPMS = availPMS.slice(1,-1);
+        var arrayOfPms = availPMS.split(',');
+        var option = document.createElement("option");
+        option.text="None";
+        option.value="None";
+        sel.add(option);
+        for (let i=0;i<arrayOfPms.length;i++){
+            var option = document.createElement("option");
+            option.text=arrayOfPms[i];
+            option.value=arrayOfPms[i];
+            sel.add(option);
+        }
+        if(tmp.length > 0){
+            if(tmp[0] != "None"){
+                for(let x=0;x<tmp.length;x++){
+                    var option = document.createElement("option");
+                    option.text=tmp[x];
+                    option.value=tmp[x];
+                    option.selected = true;
+                    sel.add(option);
+                }
+            }
+        }
+        sel.multiple = true;
+        cell.appendChild(sel);
+        //Remove Edit Button and add cancel/update
+        var id = row.children[0].innerText;
+        var lastCell = row.lastElementChild;
+        lastCell.removeChild(lastCell.firstElementChild);
+        var updateBTN = document.createElement("input");
+        updateBTN.name = "submitBTN";
+        updateBTN.type="submit";
+        updateBTN.value="Update";
+        var cancelBTN = document.createElement("input");
+        cancelBTN.name = "submitBTN";
+        cancelBTN.type="submit";
+        cancelBTN.value="Cancel";
+        lastCell.appendChild(updateBTN);
+        lastCell.appendChild(cancelBTN);
+        var iBTN = document.createElement("input");
+        iBTN.name = "submit";
+        iBTN.type = "text";
+        iBTN.value = id;
+        iBTN.hidden = true;
+        lastCell.appendChild(iBTN);
+    }
+</script>
+
+{% endblock %}

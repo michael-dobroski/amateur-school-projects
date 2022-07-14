@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content" style="text-align:left">
+    <h1 style="text-align:center">Create New Precinct</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p style="color:red;">{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form action="/create_precinct.html" method="POST" style="text-align: right; margin-right: 300px;" id="PForm">
+        <label for="location">Location</label>
+        <input id="location" name = "location" list="states" placeholder="Please Enter Precinct Location" title="Precinct Location" style="width: 300px;" required maxlength="45"><br><br><br>
+        <label for="state_election_office_email">State Election Office Email</label>
+        <input type="text" id="state_election_office_email" name="state_election_office_email" placeholder="Please Enter The State Election Office Email" style="width: 300px;" required><br><br><br>
+        <label for="zipcode">Precinct Zipcode</label>
+        <input type="text" id="zipcode" name="zipcode" placeholder="Please Enter The Precincts Zipcode" style="width: 300px;" required maxlength="5"><br><br><br>
+        <label for="zip_4_start">Zip+4 Start</label>
+        <input type="text" id="zip_4_start" name="zip_4_start" placeholder="Please Enter The Starting Zip+4 Address" style="width: 300px;" required maxlength="4"><br><br><br>
+        <label for="zip_4_end">Zip+4 End</label>
+        <input type="text" id="zip_4_end" name="zip_4_end" placeholder="Please Enter The Ending Zip+4 Address"  style="width: 300px;" required maxlength="4"><br><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <table style="margin-left: auto;margin-right: auto; border: none;">
+        <tr>
+            <td>
+                <a id="link" href="/account_home.html">Go Back (Home Page)</a>
+            </td>
+            <td>
+                <a href="/create_precinct.html">Clear</a>
+            </td>
+        </tr>
+    </table>
+    <h4 style="text-align: center;">*Note: Admins Will Be Able To Assign Polling Managers After Creating Precinct*</h3>
+    <h2 style="text-align:center">Current Precincts</h2>
+    <table id="precinct-data" style="height: 100px; overflow-y: scroll;text-align: center; margin-left: auto;margin-right: auto;">
+        <thead>
+            <tr>
+                <th>Precinct ID</th>
+                <th>Location</th>
+                <th>Pooling Manager ID</th>
+                <th>State Election Office Email</th>
+                <th>Zipcode</th>
+                <th>Zip+4 Start</th>
+                <th>Zip+4 End</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for prec in precincts %}
+                <tr>
+                    <td>{{ prec.precinct_id }}</td>
+                    <td>{{ prec.location }}</td>
+                    <td>{{ prec.pooling_manager_id }}</td>
+                    <td>{{ prec.state_election_office_email }}</td>
+                    <td>{{ prec.zipcode }}</td>
+                    <td>{{ prec.zip_4_start }}</td>
+                    <td>{{ prec.zip_4_end }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table><br><br><br><br>
+</div>
+{% endblock %}

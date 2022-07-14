@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content" id="LoginContent">
+    <h1 id="LoginTitle">Logout Page</h1>
+    <h3>Are you sure you want to logout?</h3>
+    <br><br>
+    <form action="/logout.html" method="POST">
+        <input type="submit" name="lButtons" value="Cancel"/>
+        <input type="submit" name="lButtons" id="logout" value="Logout"/>
+    </form>
+</div>
+{% endblock %}

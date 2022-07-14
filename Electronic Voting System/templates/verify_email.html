@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content" style="text-align:center">
+    <h1 style="text-align:center">VERIFY EMAIL</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p class="flash" style="color:red;">{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form action="/verify_email.html" method="POST" id="VerifyEmailForm">
+        <label for="vcode">Enter the six digit code sent to your email ...</label>
+        <h3>{{ email }}</h3>
+        <input id="vcode" name="vcode" required minlength="6" maxlength="6"><br><br>
+        <input type="submit" value="Submit"><br><br>
+        <input type="hidden" id="currEmail" name="currEmail" value="{{ email }}">
+        <input type="hidden" id="currID" name="currID" value="{{ voterID }}">
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content" style="text-align: center;" style="margin-left: 100px;">
+    {% if election.complete == 0 %}
+        <h1 style="text-align:center;">Declare Election Results</h1>
+        <h3 style="text-align:center;">Current Results For Election: <u>{{election.title}}</u></h3>
+        <div class="racesView">
+            <h4 style="text-align: center;">View Race Results Below For This Election</h4>
+            <table id="raceTable">
+                <thead>
+                    <th>
+                        <p>Race Title</p>
+                    </th>
+                    <th>
+                        <p>Term of Position</p>
+                    </th>
+                    <th>
+                        <p>Candidate 1</p>
+                    </th>
+                    <th>
+                        <p>Candidate 2</p>
+                    </th>
+                    <th>
+                        <p>Candidate 3</p>
+                    </th>
+                    <th>
+                        <p>Candidate 4</p>
+                    </th>
+                    <th>
+                        <p>Candidate 5</p>
+                    </th>
+                </thead>
+            {% for race in races %}
+                <tr>
+                    <td>
+                        <p>{{race.title}}</p>
+                    </td>
+                    <td>
+                        <p>{{race.term}}</p>
+                    </td>
+                    <td>
+                        <p>{{race.cand1}}</p>
+                        <p>Total Votes: {{race.total1}}</p>
+                    </td>
+                    <td>
+                        <p>{{race.cand2}}</p>
+                        <p>Total Votes: {{race.total2}}</p>
+                    </td>
+                    <td>
+                        <p>{{race.cand3}}</p>
+                        <p>Total Votes: {{race.total3}}</p>
+                    </td>
+                    <td>
+                        <p>{{race.cand4}}</p>
+                        <p>Total Votes: {{race.total4}}</p>
+                    </td>
+                    <td>
+                        <p>{{race.cand5}}</p>
+                        <p>Total Votes: {{race.total5}}</p>
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+        <form method="POST">
+            <input type="submit" name="submitBTN" value="Cancel">
+            <input type="submit" name="submitBTN" value="Declare Election" id="dec">
+        </form>
+    {% else %}
+        <h1 style="text-align:center;">Election: <u>{{election.title}}</u> Is Complete</h1>
+        <h2><p><a href="/view_precinct/{{prec}}/{{voterID}}"><u>Return To Precinct Information</u></a></p></h2>
+    {% endif %}
+</div>
+{% endblock %}

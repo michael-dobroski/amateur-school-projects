@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content" style="text-align: center;" style="margin-left: 100px;">
+    <h1 style="text-align:center;">Election Results For: <u>{{election.title}}</u></h1>
+    <div class="racesView">
+        <table id="raceTable">
+            <thead>
+                <th>
+                    <p>Race Title</p>
+                </th>
+                <th>
+                    <p>Term of Position</p>
+                </th>
+                <th>
+                    <p>Candidate 1</p>
+                </th>
+                <th>
+                    <p>Candidate 2</p>
+                </th>
+                <th>
+                    <p>Candidate 3</p>
+                </th>
+                <th>
+                    <p>Candidate 4</p>
+                </th>
+                <th>
+                    <p>Candidate 5</p>
+                </th>
+                <th>
+                    <p>Winner</p>
+                </th>
+            </thead>
+        {% for race in races %}
+            <tr>
+                <td>
+                    <p>{{race.title}}</p>
+                </td>
+                <td>
+                    <p>{{race.term}}</p>
+                </td>
+                <td>
+                    <p>{{race.cand1}}</p>
+                    <p>Total Votes: {{race.total1}}</p>
+                </td>
+                <td>
+                    <p>{{race.cand2}}</p>
+                    <p>Total Votes: {{race.total2}}</p>
+                </td>
+                <td>
+                    <p>{{race.cand3}}</p>
+                    <p>Total Votes: {{race.total3}}</p>
+                </td>
+                <td>
+                    <p>{{race.cand4}}</p>
+                    <p>Total Votes: {{race.total4}}</p>
+                </td>
+                <td>
+                    <p>{{race.cand5}}</p>
+                    <p>Total Votes: {{race.total5}}</p>
+                </td>
+                <td style="font-weight: bold; font-size: large;">
+                    <p><u>{{winningCand[loop.index0]}}</u></p>
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

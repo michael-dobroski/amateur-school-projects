@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1 style="margin: auto; text-align: center;">This Is The Public Home Page</h1><br><br>
+    {% if voterID %}
+    <h2>
+        <p>
+            <form action="/account_home.html"><input type="submit" value="Account Home" /></form>
+            <form action="/logout.html"><input type="submit" value="Logout" /></form>
+        </p>
+    </h2>
+    {% else %}
+    <table style="margin: auto">
+        <tr>
+            <td>
+                <a href="/login_page.html">Login Page</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="/account_create.html">Create Account Here</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="/password_recovery">Password Recovery</a>
+            </td>
+        </tr>
+    </table>
+    {% endif %}
+</div>
+{% endblock %}

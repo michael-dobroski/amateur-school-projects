@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    {% block head %}
+
+    {% endblock %}
+</head>
+
+{% block body %}
+<div class="content" style="text-align: center;">
+    <h1>Welcome to Your Account Home Page</h1>
+    <div class="leftContent">
+        <h3>Welcome {{fname}} {{lname}}</h3>
+        <body>
+            <h4>Current Address</h4>
+                <p>             
+                {{addr}},{{apt}}           <br>
+                {{city}},{{state}}      <br>
+                {{zip}}         
+                </p>
+        </body>
+        <h4>Voter Precinct</h4>
+            <p>
+                {{precinctName}}
+            </p>
+        <body>
+            <h4>Current Elections</h4>
+            <body>
+                {% for e in currElect %}
+                <p style="text-align: right; margin-right: 25%;">{{e.title}} - <a id="LE.{{e.election_id}}" href="view_election/{{e.election_id}}/{{voterID}}"><u>View Election Info</u></a></p>
+                {% endfor %}
+            </body>
+        </body>
+        <body>
+            <h4>View Previous Elections' Results</h4>
+            <body>
+                {% if pastElect|length > 0 %}
+                    {% for e in pastElect %}
+                        {% if e.complete == 1 %}
+                            <p>{{e.title}} - <a id="L.{{e.election_id}}" href="/view_results/{{e.election_id}}/{{voterID}}/{{prec.precinct_id}}"><u>View Results</u></a></p>
+                        {% else %}
+                            <p>{{e.title}} - Still In Progress, Check Back Later.</p>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <p>No Past Elections Found</p>
+                {% endif %}
+            </body>
+        </body>
+    </div>
+    <div class="rightContent">
+        <h3 style="text-align: center;">Account Specific Functionalities</h3>
+        <h5 style="margin-left: -220px;">Account Type: {{utype}}</h5>
+        <table id="defaultAccountTable">
+            <tr>
+                <td>
+                    <a href="/account_change.html">Change Account Information</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="/password_recovery">Change Account Password</a>
+                </td>
+            </tr>
+        </table>
+            {% if 'admin' == utype %}
+            <h5 style="margin-left: -220px;">Election Information</h5>
+            <table id="electionInfoTable">
+                <tr>
+                    <td>Step 1</td>
+                    <td>
+                        <a name="plink" href="/create_precinct.html">Create/View Precincts</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Step 2</td>
+                    <td>
+                        <a href="/create_election.html">Create Election/Races</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Step 3</td>
+                    <td>
+                        <a href="/assign_pm.html">Assign Polling Managers</a>
+                    </td>
+                </tr>
+            </table>
+            <h5 style="margin-left: -220px;">Other Functionalities</h5>
+            <table id="defaultAccountTable">
+                <tr>
+                    <td>
+                        <a href="/search_user_database.html">Search User Database</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="/verify_accounts.html">Verify New Accounts</a>
+                    </td>
+                
+            </table>
+            {% endif %}
+            {% if 'pm' == utype %}
+            <h5 style="margin-left: -220px;">Election Information</h5>
+            <table id="electionInfoTable">
+                <tr>
+                    {% if precinct == 'None' %}
+                        <td>Not Currently Assigned To A Precinct</td>
+                    {% else %}
+                        <td>Assigned Precinct</td>
+                        <td>{{precinct.location}}</td>
+                        <td>
+                            <a id="ppLink" href="/view_precinct/{{precinct.precinct_id}}/{{voterID}}"><u>Click To View Information</u></a>
+                        </td>
+                    {% endif %}
+                </tr>
+            </table>
+            <h5 style="margin-left: -220px;">Other Functionalities</h5>
+            <table id="defaultAccountTable">
+                <tr>
+                    <td>
+                        <a href="/search_user_database.html">Search User Database</a>
+                    </td>
+                </tr>
+            </table>
+            {% endif %}
+    </div>
+</div>
+{% endblock %}

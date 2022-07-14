@@ -1,0 +1,16 @@
+.leftContent {
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    float: left;
+}
+
+.rightContent {
+    width: 50%;
+    height: 100%;
+    float: right;
+}
+
+#defaultAccountTable, #electionInfoTable {
+    margin: auto;
+}

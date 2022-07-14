@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content" style="text-align:center">
+    <h1 style="text-align:center">Verify Accounts</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p style="color:red;">{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <table style="margin-left: auto;margin-right: auto; border: none;">
+        <tr>
+            <td>
+                <a href="/account_home.html">Go Back (Home Page)</a>
+            </td>
+            <td>
+                <a href="/verify_accounts.html">Clear</a>
+            </td>
+        </tr>
+    </table>
+    <br><br>
+
+    <br><br><br><br>
+    <form action="/verify_accounts.html" method="POST" name="verify">
+
+        
+            
+        
+        {% if users != [] %}
+
+        <input type="submit" id="submit" name="submit">
+        <br>
+        <br>
+        <table id="user-data" style="height: 100px; overflow-y: scroll;text-align: center; margin-left: auto;margin-right: auto;">
+            <thead>
+                <tr>
+                    <th>VoterID</th>
+                    <th>User Type</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zipcode</th>
+                    <th>Drivers licence number</th>
+                    <th>Email</th>
+                    <th>Verify</th>
+                    <th>Reject</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{user.voterID}}</td>
+                        <td>{{user.user_type}}</td>
+                        <td>{{user.first_name}}</td>
+                        <td>{{user.last_name}}</td>
+                        <td>{{user.address}}</td>
+                        <td>{{user.city}}</td>
+                        <td>{{user.state}}</td>
+                        <td>{{user.zipcode}}</td>
+                        <td>{{user.driver_license_num}}</td>
+                        <td>{{user.email}}</td>
+                        <td>
+                            <input type="checkbox" name="{{user.voterID}}a" id="{{user.voterID}}a">
+                        </td>
+                        <td>
+                            <input type="checkbox" name="{{user.voterID}}b" id="{{user.voterID}}b">
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table><br><br><br><br>
+        {% else %}
+
+        <H5>No one was found</H5>
+
+        {% endif %}
+    </form>
+
+</div>
+{% endblock %}

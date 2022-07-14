@@ -1,0 +1,46 @@
+<center>
+    <h1>BALLOT</h1>
+
+    {% for race in raceInfo %}
+        <h2> {{ race.title }} </h2>
+
+        <table cellspacing="0" rules="all" border="1" id="Table1" style="border-collapse: collapse;">
+            <tr>
+                <th>&nbsp;</th>
+                <th style="width:80px">Candidate</th>  
+            </tr>
+
+            <tr>
+                <td><input type="checkbox"/></td>
+                <td>{{ race.cand1 }}</td>
+            </tr>
+
+            <tr>
+                <td><input type="checkbox"/></td>
+                <td>{{ race.cand2 }}</td>
+            </tr>
+
+            {% if race.cand3 != None %}
+                <tr>
+                    <td><input type="checkbox"/></td>
+                    <td>{{ race.cand3 }}</td>
+                </tr>
+            {% endif %}
+
+            {% if race.cand4 != None %}
+                <tr>
+                    <td><input type="checkbox"/></td>
+                    <td>{{ race.cand4 }}</td>
+                </tr>
+            {% endif %}
+
+            {% if race.cand5 != None %}
+                <tr>
+                    <td><input type="checkbox"/></td>
+                    <td>{{ race.cand5 }}</td>
+                </tr>
+            {% endif %}
+
+        </table>
+    {% endfor %}
+</center>

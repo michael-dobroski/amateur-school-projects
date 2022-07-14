@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content" style="text-align: center;">
+    <h1>User Search</h1>
+    <form action = "/search_user_database.html" method = "POST" id="search">
+        <table style="margin-left: auto;margin-right: auto; border: none;">
+            <tr>
+                <td>
+                    <a href="/account_home.html">Go Back (Home Page)</a>
+                </td>
+                <td>
+                    <a href="/search_user_database.html">Clear</a>
+                </td>
+            </tr>
+        </table>
+        <br><br>
+        <p>Search for accounts with</p>
+        <label for="zipcode" >Zipcode</label>
+        <input type="text" id="zipcode" name="zipcode" value="{{zipcode}}">
+        <label for="first name" >first name</label>
+        <input type="text" id="first name" name="first name" value="{{firstname}}">
+        <label for="last name" >last name</label>
+        <input type="text" id="last name" name="last name" value="{{lastname}}"><br><br>
+        <label for="user type" >user type</label>
+        <input type="text" id="user type" name="user type" value="{{usertype}}">
+        <label for="user type" >PrecinctID</label>
+        <input type="text" id="precinctid" name="precinctid" value="{{precinct}}">
+        <input type="submit" id="search" name="search">
+    
+    </form>
+    <br><br><br><br>
+    {% if users != [] %}
+    <table id="user-data" style="height: 100px; overflow-y: scroll;text-align: center; margin-left: auto;margin-right: auto;">
+        <thead>
+            <tr>
+                <th>VoterID</th>
+                <th>User Type</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zipcode</th>
+                <th>Drivers licence number</th>
+                <th>Email</th>
+                <th>Verify</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{user.voterID}}</td>
+                    <td>{{user.user_type}}</td>
+                    <td>{{user.first_name}}</td>
+                    <td>{{user.last_name}}</td>
+                    <td>{{user.address}}</td>
+                    <td>{{user.city}}</td>
+                    <td>{{user.state}}</td>
+                    <td>{{user.zipcode}}</td>
+                    <td>{{user.driver_license_num}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.verified}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table><br><br><br><br>
+    {% else %}
+
+        <H5>No one was found</H5>
+
+    
+    {% endif %}
+
+
+</div>
+{% endblock %}

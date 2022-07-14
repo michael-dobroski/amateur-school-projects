@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content" style="text-align: center;" style="margin-left: 100px;">
+    <h1 style="font-size: 25px;">You Are Now Viewing Information For Following Election: <u>{{election.title}}</u></h1>
+    <h4>Vote In This Election</h4>
+    <h5>Ballot: 
+        {% if ballot.ballot_active == 1 %}
+            Active 
+            {% if user.user_type == 'voter' %}
+                <a id="voteLink" title="Click Here To Vote"style="font-size: 25px;"href="/vote_ballot.html/{{voterID}}/{{electionID}}"><u>Vote Now</u></a>
+            {% endif %}
+        {% else %}
+            Inactive. See Polling Manager.
+        {% endif %}
+    </h5>
+    {% if user.user_type == 'pm' %}
+        <table style="margin:auto;">
+            <form method="POST">
+                <tr>
+                    <td>
+                        <input type="submit" value="Return To Precinct Info" name="submitBTN">
+                        <input type="text" name="id" value="{{prec}}" hidden>
+                    </td>
+                    <td>
+                        {% if ballot.ballot_active == 0 %}
+                            <input type="submit" value="Activate Ballot" name="submitBTN" id="btn">
+                        {% else %}
+                            <input type="submit" value="Deactivate Ballot" name="submitBTN" id="btn">
+                        {% endif %}
+                    </td>
+                    <td>
+                        <input type="submit" value="Declare Election" name="submitBTN" id="dec">
+                        <input type="text" name="id" value="{{prec}}" hidden>
+                    </td>
+                </tr>
+            </form>
+        </table>
+    {% endif %}
+
+    <div style="text-align: left;">
+        <h3><u>Election Title:</u> {{election.title}}</h3>
+        <h3><u>Election ID Number:</u> {{election.election_id}}</h3>
+        <h3><u>Election Polling Date:</u> {{election.polling_date}}</h3>
+        <h3><u>Polling Start Time (24 hr):</u> {{election.start_time}}</h3>
+        <h3><u>Polling End Time (24 hr):</u> {{election.end_time}}</h3>
+    </div>
+    <div class="racesView">
+        <h4 style="text-align: center;">View Race Information Below For This Election</h4>
+        <table id="raceTable">
+            <thead>
+                <th>
+                    <p>Race Title</p>
+                </th>
+                <th>
+                    <p>Term of Position</p>
+                </th>
+                <th>
+                    <p>Candidate 1</p>
+                </th>
+                <th>
+                    <p>Candidate 2</p>
+                </th>
+                <th>
+                    <p>Candidate 3</p>
+                </th>
+                <th>
+                    <p>Candidate 4</p>
+                </th>
+                <th>
+                    <p>Candidate 5</p>
+                </th>
+            </thead>
+        {% for race in races %}
+            <tr>
+                <td>
+                    <p>{{race.title}}</p>
+                </td>
+                <td>
+                    <p>{{race.term}}</p>
+                </td>
+                <td>
+                    <p>{{race.cand1}}</p>
+                    <p><a href="/candidate_info/{{electionID}}/{{voterID}}/{{race.cand1}}" target="_blank"><u>View Bio</u></a></p>
+                </td>
+                <td>
+                    <p>{{race.cand2}}</p>
+                    <p><a href="/candidate_info/{{electionID}}/{{voterID}}/{{race.cand2}}" target="_blank"><u>View Bio</u></a></p>
+                </td>
+                <td>
+                    <p>{{race.cand3}}</p>
+                    <p><a href="/candidate_info/{{electionID}}/{{voterID}}/{{race.cand3}}" target="_blank"><u>View Bio</u></a></p>
+                </td>
+                <td>
+                    <p>{{race.cand4}}</p>
+                    <p><a href="/candidate_info/{{electionID}}/{{voterID}}/{{race.cand4}}" target="_blank"><u>View Bio</u></a></p>
+                </td>
+                <td>
+                    <p>{{race.cand5}}</p>
+                    <p><a href="/candidate_info/{{electionID}}/{{voterID}}/{{race.cand5}}" target="_blank"><u>View Bio</u></a></p>
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

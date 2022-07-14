@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content" id="LoginContent">
+    <h1 id="LoginAccess">Login Page Access Code</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p style="color: red;">{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form action="/login_access_code.html" method="POST" id="LoginForm">
+        <label for="accessCode">One-time Access Code</label>
+        <input type="text" id="accessCode" name="accessCode" placeholder="Please Enter Your One-time Access Code" style="width: 200px; font-size: small;" required><br><br>
+        <p><a href="/login_page.html">Back to login page</a></p>
+        <br>
+        <input type="submit" value="Login">
+    </form>
+</div>
+{% endblock %}
